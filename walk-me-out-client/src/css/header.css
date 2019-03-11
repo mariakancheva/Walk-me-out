@@ -1,0 +1,33 @@
+.header-top{
+    padding: 0.25em;
+    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5em;
+}
+
+.logo{
+    float: left;
+    flex: 1 1 0;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.social-links{
+    float: right;
+    flex: 1 1 0;
+}
+
+.header-top a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.25rem;
+}
+
+.main-navigation a{
+    text-decoration: none;
+    background-color: black;
+    color: blanchedalmond;
+    font-size: 1.1rem;
+    padding: 0.5em;
+}
