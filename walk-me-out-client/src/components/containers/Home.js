@@ -65,7 +65,7 @@ class Home extends Component {
                                 </p>
                             </div>
                             <div className="card-footer">
-                                <i class="fas fa-dog"></i>
+                                <i className="fas fa-dog"></i>
                             </div>
                         </div>
 
@@ -80,7 +80,7 @@ class Home extends Component {
                                 </p>
                             </div>
                             <div className="card-footer">
-                                <i class="fas fa-home"></i>
+                                <i className="fas fa-home"></i>
                             </div>
                         </div>
 
@@ -93,7 +93,7 @@ class Home extends Component {
                                 </p>
                             </div>
                             <div className="card-footer">
-                                <i class="fas fa-hands-helping"></i>
+                                <i className="fas fa-hands-helping"></i>
                             </div>
                         </div>
 

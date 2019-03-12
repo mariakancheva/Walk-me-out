@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../css/footer.css';
 
-class Footer extends Component {
-    render() {
-        return (
+function Footer() {
+    return (
         <div className="foot">
-                Copyright &copy; {new Date().getFullYear} Walk me out!
+            Copyright &copy; 2019 Walk me out!
         </div>
-        )
-    }
+    );
+
 }
 
 export default Footer;

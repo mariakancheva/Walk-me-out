@@ -1,12 +1,15 @@
-.home{
-
-}
-
 .wellcome-message{
   text-align: left;
   color: aliceblue;
   font-style: oblique;
   height: 750px;
+  width: 100%
+}
+
+@media all and (max-width:320px){
+  .wellcome-message{
+    height: 550px;
+  }
 }
 
 .wellcome-message img{
@@ -25,7 +28,7 @@
   padding: 2em;
 
   text-align: justify;
-  background: antiquewhite;
+  background: white;
 }
 
 .aboutUs h2{
@@ -34,7 +37,7 @@
 }
 
 hr{
-  border: 2px solid salmon;
+  border: 2px solid rgb(175, 110, 48);
   width: 10em;
 }
 
@@ -50,6 +53,16 @@ hr{
 
 }
 
+@media all and (max-width: 760px) {
+ .cards{
+   flex-flow: column;
+   flex-direction: column;
+   flex-wrap: wrap;
+ }
+}
+
+
+
 .cards{
 width:100%;
 display: flex;
@@ -60,18 +73,29 @@ align-content: space-between;
   width: 33%;
   border: none;
   margin: 0.5em;
+}
 
+@media all and (max-width: 760px) {
+ .card{
+   width: 100%;
+ }
 }
 
 .card-header{
   background-color: white;
-  border-bottom: salmon 2px solid; 
+  border: none;
+}
+
+.card-body{
+  text-align: justify;
 }
 
 .card-footer{
-  border-top:  salmon 2px solid; 
-  font-size: 1.25em;
+  border: none;
+  font-size: 3em;
   background: white;
+  color: rgb(255, 206, 148);
+  
 }
   
 .contact .box{
@@ -83,8 +107,8 @@ align-content: space-between;
 .fields{
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% + 3em);
-  margin: 1em;
+  width: 100%;
+ 
 }
 
 .field{
@@ -103,7 +127,7 @@ align-content: space-between;
   width: 100%;
   padding: 0.65em 0.75em;
   background: none;
-  border: solid 1px salmon;
+  border: solid 1px rgb(175, 110, 48);
   color: inherit;
   border-radius: 0.5em;
   outline: none;
@@ -114,9 +138,17 @@ align-content: space-between;
   height: 35px;
     padding: 5px;
     margin: 1rem;
-    background: salmon;
+    background: rgb(175, 110, 48);
     border: none;
     border-radius: 0.2em;
     color: white;
   
+}
+
+@media all and (max-width: 320px) {
+  .half,
+  .field{
+    width: 100%;
+  }
+ 
 }

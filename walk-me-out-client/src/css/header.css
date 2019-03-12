@@ -6,15 +6,21 @@ header{
     width: 100%;
     height: 6em;
     margin-bottom: 1em;
-    background: salmon;
+    background: rgb(255, 206, 148);
     box-shadow: 0 0 0.15em 0 rgba(0,0,0,0.1);
+}
+
+@media all and (max-width: 435px) {
+    header{
+        height: 8em;
+    }
 }
 
 .header-top{
     padding: 0.25em;
     display: flex;
     flex-direction: row;
- margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .logo{
