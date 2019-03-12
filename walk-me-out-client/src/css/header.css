@@ -1,9 +1,20 @@
+header{
+    position: fixed;
+    z-index: 10000;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 6em;
+    margin-bottom: 1em;
+    background: salmon;
+    box-shadow: 0 0 0.15em 0 rgba(0,0,0,0.1);
+}
+
 .header-top{
     padding: 0.25em;
-    background-color: blanchedalmond;
     display: flex;
     flex-direction: row;
-    margin-bottom: 0.5em;
+ margin-bottom: 1rem;
 }
 
 .logo{
@@ -24,10 +35,30 @@
     font-size: 1.25rem;
 }
 
-.main-navigation a{
+.main-navigation{
+    display: flex;
+    flex-direction: row;
+}
+.site-nav{
+    float: left;
+    flex: 1 1 0;
+}
+
+.user-nav{
+    flex: 1 1 0;
+}
+
+.main-navigation a,
+.user-nav a{
     text-decoration: none;
-    background-color: black;
-    color: blanchedalmond;
+    color: rgb(0, 0, 0);
     font-size: 1.1rem;
-    padding: 0.5em;
+    padding: 0.2em;
+    width: 100%;
+}
+
+.main-navigation a:hover,
+.user-nav a:hover{
+     background-color:  rgba(255,255,255,1);
+     border-radius: 0.25em;
 }

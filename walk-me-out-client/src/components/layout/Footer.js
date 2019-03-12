@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import '../../css/footer.css';
 
 class Footer extends Component {
     render() {
         return (
-            <div className=" bg-dark text-white mt-5 p-4 text-center">
+        <div className="foot">
                 Copyright &copy; {new Date().getFullYear} Walk me out!
-            </div>
+        </div>
         )
     }
 }
-
 
 export default Footer;
