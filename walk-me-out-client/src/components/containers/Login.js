@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl } from "react-bootstrap";
-import "../../css/login.css";
+import { Button } from "react-bootstrap";
+import TextField from '@material-ui/core/TextField';
+import LoginPicture from '../../images/pawel-czerwinski-1404601-unsplash.jpg'
+import "../../css/register.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -24,39 +26,46 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const userLog = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    console.log(userLog)
   }
 
   render() {
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <label>Email</label>
-            <FormControl
-              autoFocus
+      <section className="register">
+        <div className="img-part">
+          <img src={LoginPicture} alt="Login picture"></img>
+        </div>
+        <div className="form-part">
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              required
+              id="email"
+              label="Email"
               type="email"
-              value={this.state.email}
+              name="email"
+              margin="normal"
               onChange={this.handleChange}
             />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <label>Password</label>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
+
+            <TextField
+              required
+              id="password"
+              name="password"
+              label="Password"
+              className=""
               type="password"
+              margin="normal"
+              onChange={this.handleChange}
             />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
-        </form>
-      </div>
+
+            <Button type="submit">Login</Button>
+          </form>
+        </div>
+      </section >
     );
   }
 }
