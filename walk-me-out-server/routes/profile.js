@@ -41,10 +41,10 @@ function validateProfileForm(payload) {
     }
 }
 
-// @route   POST /profile
+// @route   POST /profile/create
 // @desc    Create user profile
 // @access  Private
-router.post('/profile', authCheck, (req, res) => {
+router.post('/create', authCheck, (req, res) => {
     const profileObj = req.body;
     const validationResult = validateProfileForm(profileObj)
     if (!validationResult.success) {
@@ -76,7 +76,7 @@ router.post('/profile', authCheck, (req, res) => {
 // @route   POST /profile/edit/:id
 // @desc    Create user profile
 // @access  Private
-router.post('/profile/edit', authCheck, (req, res) => {
+router.post('/edit/:id', authCheck, (req, res) => {
     const profileId = req.params.id;
     const profileObj = req.body;
     const validationResult = validateProfileForm(profileObj)
@@ -121,7 +121,7 @@ router.post('/profile/edit', authCheck, (req, res) => {
 // @route   DELETE /profile
 // @desc    Delete user and profile
 // @access  Private
-router.delete('/profile', authCheck, (req, res) => {
+router.delete('/delete/:id', authCheck, (req, res) => {
 
     Profile.findOneAndRemove({ user: req.user_id }).then(() => {
         User.findByIdAndRemove({ _id: req.user._id }).then(() => {

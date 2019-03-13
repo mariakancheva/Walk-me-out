@@ -1,15 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./components/containers/Home";
 import About from "./components/containers/About";
 import Services from "./components/containers/Services";
 import Contact from "./components/containers/Contact";
-import Login from "./components/containers/Login"
-import Register from "./components/containers/Register"
+
+import Login from "./components/forms/Login"
+import Register from "./components/forms/Register"
+
 import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
-import './App.css';
+import './css/App.css';
 
 class App extends Component {
   render() {

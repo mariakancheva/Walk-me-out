@@ -23,7 +23,7 @@ function validateDogForm(payload) {
 
     if (!payload || typeof payload.age !== 'number') {
         isFormValid = false
-        errors.address = 'Age must be at least 0.3'
+        errors.address = 'Age must be at least 0.3 years'
     }
 
     if (!payload || typeof payload.weight !== 'number') {
@@ -79,7 +79,7 @@ router.post('/add', authCheck, (req, res) => {
 // @route   POST /dog/edit/:id
 // @desc    Edit pet
 // @access  Private
-router.post('/dog/edit/id', authCheck, (req, res) => {
+router.post('/edit/:id', authCheck, (req, res) => {
     const dogId = req.params.id;
     const dogObj = req.body;
     const validationResult = validateDogForm(dogObj)
@@ -127,7 +127,7 @@ router.post('/dog/edit/id', authCheck, (req, res) => {
 // @route   DELETE /dog/id
 // @desc    Delete user and profile
 // @access  Private
-router.delete('/dog', authCheck, (req, res) => {
+router.delete('/delete/:id', authCheck, (req, res) => {
 
     Dog.findOneAndRemove({ dog: req.params_id }).then(() => {
         res.status(200).json({

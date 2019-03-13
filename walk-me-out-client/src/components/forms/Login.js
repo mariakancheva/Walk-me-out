@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import loginValidator from '../../utils/loginValidation';
+import Auth from '../../utils/auth';
+import {loginValidationFunc} from '../../utils/formValidation';
+
+
+import toastr from 'toastr';
 import { Button } from "react-bootstrap";
 import TextField from '@material-ui/core/TextField';
 import LoginPicture from '../../images/pawel-czerwinski-1404601-unsplash.jpg'

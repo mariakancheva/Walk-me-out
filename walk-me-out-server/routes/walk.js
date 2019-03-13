@@ -41,10 +41,10 @@ function validateWalkForm(payload) {
     }
 }
 
-// @route   POST /walk
+// @route   POST /walk/create
 // @desc    Add walk
 // @access  Private
-router.post('/walk', authCheck, (req, res) => {
+router.post('/create', authCheck, (req, res) => {
     const walk = req.body;
     const walkObj = {
         owner: req.user._id,
@@ -79,7 +79,7 @@ router.post('/walk', authCheck, (req, res) => {
 // @route   POST /walk/edit/:id
 // @desc    Edit walk
 // @access  Private
-router.post('/walk/edit/id', authCheck, (req, res) => {
+router.post('/edit/:id', authCheck, (req, res) => {
     const walkId = req.params.id;
     const walkObj = req.body;
     const validationResult = validateWalkForm(dogObj)
@@ -125,7 +125,7 @@ router.post('/walk/edit/id', authCheck, (req, res) => {
 // @route   DELETE /walk/id
 // @desc    Delete user and profile
 // @access  Private
-router.delete('/walk', authCheck, (req, res) => {
+router.delete('/delete/:id', authCheck, (req, res) => {
 
     Walk.findOneAndRemove({ id: req.params_id }).then(() => {
         res.status(200).json({
