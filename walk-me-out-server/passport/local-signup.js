@@ -1,6 +1,6 @@
 const PassportLocalStrategy = require('passport-local').Strategy;
-const User = require('../model/User')
-const encryption = require('../utilities/encryption')
+const User = require('../models/User')
+const encryption = require('../utilities/enryption')
 
 module.exports = new PassportLocalStrategy({
     usernameField:'email',

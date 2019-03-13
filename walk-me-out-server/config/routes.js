@@ -7,5 +7,5 @@ module.exports = (app) => {
     app.use('/auth',authRoutes);
     app.use('/profile', profileRoutes);
     app.use('/dog',dogRoutes);
-    app.user('walk',walkRoutes);
+    app.use('walk',walkRoutes);
 }

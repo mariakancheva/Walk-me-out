@@ -4,7 +4,7 @@ const User = require('../models/User');
 mongoose.Promise = global.Promise
 
 module.exports = (settings) => {
-    mongoose.connect(settings.db)
+    mongoose.connect(settings.db, { useNewUrlParser:true})
     let db = mongoose.connection
 
     db.once('open', err => {
@@ -13,7 +13,7 @@ module.exports = (settings) => {
         }
 
         console.log('MongoDB ready!')
-        User.seedAdminUser()
+        User.seedAdmin();
     })
 
     db.on('error', err => console.log(`Database error: ${err}`))
