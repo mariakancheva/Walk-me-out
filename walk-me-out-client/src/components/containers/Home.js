@@ -1,35 +1,16 @@
 import React, { Component } from 'react';
 import '../../css/home.css'
 import Stuard from '../../images/stewartrunning-2.jpg'
+import Auth from '../../utils/auth'
+import {connect} from 'react-redux'
+import {Link } from 'react-router-dom'
 
 class Home extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            name: '',
-            email: '',
-            message: ''
-        };
 
-        this.onChange = this.onChange.bind(this);
-        this.onSubmitHandle = this.onSubmit.bind(this);
-    }
-
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    onSubmit(e) {
-        e.preventDeafault();
-
-        const contactMessage = {
-            name: this.state.name,
-            email: this.state.email,
-            message: this.state.message
-        }
-        console.log(contactMessage)
-    }
     render() {
+        const isAdmin = Auth.isUserAdmin()
+        const isAuthenticated = Auth.isUserAuthenticated()
+        
         return (
             <div className="home">
                 <section className="wellcome-message">
@@ -101,33 +82,6 @@ class Home extends Component {
 
 
                 </section>
-
-                <section className="contact">
-                    <h2>Contact</h2>
-                    <hr />
-                    <div className="box">
-                        <form>
-                            <div className="fields">
-                                <div className="field half">
-                                    <input type="text" name="name" placeholder="Name" onChange={this.onChange} />
-                                </div>
-                                <div className="field half">
-                                    <input type="email" name="email" placeholder="Email" onChange={this.onChange} />
-                                </div>
-                                <div className="field">
-                                    <textarea name="message" placeholder="Message" rows="6" onChange={this.onChange} />
-                                </div>
-                                <div className="field">
-                                <button className="btn" onSubmit={this.onSubmit}>Send message</button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-
-
-                </section>
-
 
             </div >
 

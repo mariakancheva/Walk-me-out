@@ -2,7 +2,7 @@ import Auth from '../utils/auth'
 const host = 'http://localhost:5000'
 
 async function register (username, email, password){
-    const res = await window.fetch(host + 'auth/signup', {
+    const res = await window.fetch(host + '/auth/signup', {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -18,7 +18,7 @@ async function register (username, email, password){
 }
 
 async function login (email,password){
-    const res = await window.fetch(host + 'auth/login',{
+    const res = await window.fetch(host + '/auth/login',{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -33,7 +33,7 @@ async function login (email,password){
 }
 
 async function createProfile(data){
-    const res = await window.fetch(host + 'profile/create', {
+    const res = await window.fetch(host + '/profile/create', {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -46,7 +46,7 @@ async function createProfile(data){
 }
 
 async function editProfile(id,data){
-    const res = await window.fetch(host + `profile/edit/${id}`, {
+    const res = await window.fetch(host + `/profile/edit/${id}`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -59,26 +59,25 @@ async function editProfile(id,data){
 }
 
 async function deleteProfile(id){
-    const res = await window.fetch(host + `profile/delete/${id}`, {
+    const res = await window.fetch(host + `/profile/delete/${id}`, {
         method:'DELETE',
         headers:{
             'Content-Type':'application/json',
             'Authorization':'bearer ' + Auth.getToken()
         },
-        body:JSON.stringify(data)
+       
     })
 
     return res.json();
 }
 
 async function fetchProfiles(){
-    const res = await window.fetch(host + 'profile/all')
-
+    const res = await window.fetch(host + '/admin/profile/all')
     return res.json();
 }
 
 async function addDog(data){
-    const res = await window.fetch(host + 'dog/create', {
+    const res = await window.fetch(host + '/dog/create', {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -91,7 +90,7 @@ async function addDog(data){
 }
 
 async function editDog(id,data){
-    const res = await window.fetch(host + `dog/edit/${id}`, {
+    const res = await window.fetch(host + `/dog/edit/${id}`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -99,25 +98,24 @@ async function editDog(id,data){
         },
         body:JSON.stringify(data)
     })
-
     return res.json();
 }
 
 async function deleteDog(id){
-    const res = await window.fetch(host + `dog/delete/${id}`, {
+    const res = await window.fetch(host + `/dog/delete/${id}`, {
         method:'DELETE',
         headers:{
             'Content-Type':'application/json',
             'Authorization':'bearer ' + Auth.getToken()
         },
-        body:JSON.stringify(data)
+      
     })
 
     return res.json();
 }
 
 async function fetchDogs(){
-    const res = await window.fetch(host + 'dog/all')
+    const res = await window.fetch(host + '/admin/dog/all')
 
     return res.json();
 }
@@ -136,7 +134,7 @@ async function createWalk(data){
 }
 
 async function editWalk(id,data){
-    const res = await window.fetch(host + `walk/edit/${id}`, {
+    const res = await window.fetch(host + `/walk/edit/${id}`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -149,20 +147,20 @@ async function editWalk(id,data){
 }
 
 async function deleteWalk(id){
-    const res = await window.fetch(host + `walk/delete/${id}`, {
+    const res = await window.fetch(host + `/walk/delete/${id}`, {
         method:'DELETE',
         headers:{
             'Content-Type':'application/json',
             'Authorization':'bearer ' + Auth.getToken()
         },
-        body:JSON.stringify(data)
+      
     })
 
     return res.json();
 }
 
 async function fetchWalks(){
-    const res = await window.fetch(host + 'walk/all')
+    const res = await window.fetch(host + '/admin/walk/all')
 
     return res.json();
 }

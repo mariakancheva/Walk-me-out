@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import loginValidator from '../../utils/loginValidation';
+import { Button } from "react-bootstrap";
+import toastr from 'toastr';
 import Auth from '../../utils/auth';
 import {loginValidationFunc} from '../../utils/formValidation';
-
-
-import toastr from 'toastr';
-import { Button } from "react-bootstrap";
+import loginValidation from "../../utils/loginValidation";
 import TextField from '@material-ui/core/TextField';
 import LoginPicture from '../../images/pawel-czerwinski-1404601-unsplash.jpg'
 import "../../css/register.css";
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -18,10 +17,25 @@ export default class Login extends Component {
       email: "",
       password: ""
     };
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+  componentWillMount(){
+    if(Auth.isUserAuthenticated()){
+      this.props.history.push('/')
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.loginError.hasError){
+      toastr.error(nextProps.loginError.message)
+    }else if(nextProps.loginSuccess){
+      this.props.redirect()
+      toastr.success('Login successful')
+      this.props.history.push('/')
+    }
   }
 
   handleChange = event => {
@@ -32,14 +46,19 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const userLog = {
-      email: this.state.email,
-      password: this.state.password
+    if(!loginValidation(this.state.email,this.state.password)){
+      return
     }
-    console.log(userLog)
+
+    this.props.login(this.state.email, this.state.password)
   }
 
   render() {
+    let validObj = loginValidationFunc(
+      this.state.email,
+      this.state.password
+    )
+
     return (
       <section className="register">
         <div className="img-part">
@@ -55,6 +74,8 @@ export default class Login extends Component {
               name="email"
               margin="normal"
               onChange={this.handleChange}
+              value={this.state.email}
+              valid={validObj.validEmail}
             />
 
             <TextField
@@ -66,6 +87,8 @@ export default class Login extends Component {
               type="password"
               margin="normal"
               onChange={this.handleChange}
+              value={this.state.password}
+              valid={validObj.validPassword}
             />
 
             <Button type="submit">Login</Button>

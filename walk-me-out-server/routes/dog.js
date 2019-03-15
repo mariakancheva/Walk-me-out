@@ -91,7 +91,7 @@ router.post('/edit/:id', authCheck, (req, res) => {
         })
     }
 
-    Dog.findById({ dogId }).then((editedDog) => {
+    Dog.findById({ _id: dogId, owner: req.user._id }).then((editedDog) => {
         editedDog.name = dogObj.name;
         editedDog.breed = dogObj.breed;
         editedDog.age = dogObj.age;
@@ -129,49 +129,23 @@ router.post('/edit/:id', authCheck, (req, res) => {
 // @access  Private
 router.delete('/delete/:id', authCheck, (req, res) => {
 
-    Dog.findOneAndRemove({ dog: req.params_id }).then(() => {
-        res.status(200).json({
-            success: true,
-            message: "Profile wad deleted"
-        })
-    }).catch(err => {
-        console.log(err);
-        const message = 'Something went wrong';
-        return res.status(200).json({
-            success: false,
-            message: message
-        })
-    })
-})
-
-// @route   GET /dog/all
-// @desc    Get all dogs
-// @access  Private admin
-
-router.get('/all', authCheck, (req, res) => {
-    Dog.find().populate('owner').then(dogs => {
-        if (!dogs) {
-            const message = 'There are no dogs'
+    Dog.findOneAndRemove({ dog: req.params_id, owner: req.user._id })
+        .then(() => {
+            res.status(200).json({
+                success: true,
+                message: "Profile wad deleted"
+            })
+        }).catch(err => {
+            console.log(err);
+            const message = 'Something went wrong';
             return res.status(200).json({
                 success: false,
-                message: message,
-                errors: validationResult.errors
+                message: message
             })
-        }
-        res.status(200).json({
-            success: true,
-            message: "Found dogs",
-            data: dogs
         })
-    }).catch(err => {
-        console.log(err);
-        const message = 'Something went wrong';
-        return res.status(200).json({
-            success: false,
-            message: message
-        })
-    })
 })
+
+
 
 
 module.exports = router

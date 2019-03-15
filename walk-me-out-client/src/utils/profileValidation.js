@@ -22,4 +22,4 @@ function profileValidation (firstName, lastName, address, telephone) {
   return true
 }
 
-export default profileValidation
+export { profileValidation }

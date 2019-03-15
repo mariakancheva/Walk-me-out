@@ -38,7 +38,7 @@ function createDogErrorReducer(state = { hasError: false, message: '' }, action)
     }
 }
 
-function editDogReduser(state = { succsess: false }, action) {
+function editDogReducer(state = { succsess: false }, action) {
     switch (action.type) {
         case EDIT_DOG_SUCCESS:
             return Object.assign({}, state, { succsess: true })
@@ -87,6 +87,6 @@ export{
     dogReducer,
     createDogReducer,
     createDogErrorReducer,
-    editDogReduser,
+    editDogReducer,
     editDogErrorReducer
 }

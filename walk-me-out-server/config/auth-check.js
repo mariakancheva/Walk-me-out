@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
     return jwt.verify(token, 's0m3 r4nd0m str1ng', (err, decoded) => {
         if (err) {
-            returnres.status(401).end()
+            return res.status(401).end()
         }
         const userId = decoded.sub
         User.findById(userId)
@@ -19,6 +19,7 @@ module.exports = (req, res, next) => {
                 }
 
                 req.user = user
+                
                 return next()
             })
     })

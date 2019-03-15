@@ -55,7 +55,7 @@ function fetchDogsAction(){
     }
 }
 
-function addDogAction(data){
+function createDogAction(data){
     return (dispatch) => {
         dispatch(beginAjax())
         return addDog(data)
@@ -98,7 +98,7 @@ function deleteDogAction (id){
 
 export {
     fetchDogsAction,
-    addDogAction,
+    createDogAction,
     editDogAction,
     deleteDogAction
 }

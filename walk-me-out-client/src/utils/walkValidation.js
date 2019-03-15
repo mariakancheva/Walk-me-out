@@ -5,7 +5,7 @@ function walkValidation (date, time) {
     toastr.error('Have to pick a date')
     return false
   }
-  if (time.length < 3 || lastName === '') {
+  if (time.length < 3 || time === '') {
     toastr.error('Have to pick a time')
     return false
   }
@@ -13,4 +13,4 @@ function walkValidation (date, time) {
   return true
 }
 
-export default walkValidation
+export { walkValidation}

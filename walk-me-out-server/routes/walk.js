@@ -47,8 +47,8 @@ function validateWalkForm(payload) {
 router.post('/create', authCheck, (req, res) => {
     const walk = req.body;
     const walkObj = {
-        owner: req.user._id,
-        dog:req.params.id,
+        user: req.user._id,
+        dog: req.params.id,
         walk
     }
     const validationResult = validateWalkForm(dogObj)
@@ -63,7 +63,7 @@ router.post('/create', authCheck, (req, res) => {
     Walk.create(walkObj).then((walk) => {
         res.status(200).json({
             success: true,
-            message: "Pet added successfully",
+            message: "Walk added successfully",
             data: walk
         })
     }).catch(err => {
@@ -91,7 +91,7 @@ router.post('/edit/:id', authCheck, (req, res) => {
         })
     }
 
-    Walk.findById({ walkId }).then((editedWalk) => {
+    Walk.findById({ _id:walkId,user:req.user._id }).then((editedWalk) => {
         editedWalk.duration = walkObj.duration;
         editedWalk.place = walkObj.place;
         editedWalk.date = walkObj.date;
@@ -127,39 +127,10 @@ router.post('/edit/:id', authCheck, (req, res) => {
 // @access  Private
 router.delete('/delete/:id', authCheck, (req, res) => {
 
-    Walk.findOneAndRemove({ id: req.params_id }).then(() => {
+    Walk.findOneAndRemove({ _id: req.params_id, user:req.user._id }).then(() => {
         res.status(200).json({
             success: true,
             message: "Walk was canceled"
-        })
-    }).catch(err => {
-        console.log(err);
-        const message = 'Something went wrong';
-        return res.status(200).json({
-            success: false,
-            message: message
-        })
-    })
-})
-
-// @route   GET /walk/all
-// @desc    Get all dogs
-// @access  Private admin
-
-router.get('/all', authCheck, (req, res) => {
-    Walk.find().populate('dog').populate('user').then(walks => {
-        if (!walks) {
-            const message = 'There are no walks'
-            return res.status(200).json({
-                success: false,
-                message: message,
-                errors: validationResult.errors
-            })
-        }
-        res.status(200).json({
-            success: true,
-            message: "Found walks",
-            data: walks
         })
     }).catch(err => {
         console.log(err);

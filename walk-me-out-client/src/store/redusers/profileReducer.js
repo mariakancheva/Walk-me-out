@@ -38,7 +38,7 @@ function createProfileErrorReducer(state = { hasError: false, message: '' }, act
     }
 }
 
-function editProfileReduser(state = { succsess: false }, action) {
+function editProfileReducer(state = { succsess: false }, action) {
     switch (action.type) {
         case EDIT_PROFILE_SUCCESS:
             return Object.assign({}, state, { succsess: true })
@@ -89,6 +89,6 @@ export{
     profileReducer,
     createProfileReducer,
     createProfileErrorReducer,
-    editProfileReduser,
+    editProfileReducer,
     editProfileErrorReducer
 }

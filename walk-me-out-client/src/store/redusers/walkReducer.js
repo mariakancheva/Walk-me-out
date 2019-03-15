@@ -38,7 +38,7 @@ function createWalkErrorReducer(state = { hasError: false, message: '' }, action
     }
 }
 
-function editWalkReduser(state = { succsess: false }, action) {
+function editWalkReducer(state = { succsess: false }, action) {
     switch (action.type) {
         case EDIT_WALK_SUCCESS:
             return Object.assign({}, state, { succsess: true })
@@ -88,5 +88,5 @@ export{
     createWalkErrorReducer,
     createWalkReducer,
     editWalkErrorReducer,
-    editWalkReduser
+    editWalkReducer
 }

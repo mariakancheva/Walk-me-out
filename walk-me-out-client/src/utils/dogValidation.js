@@ -5,7 +5,7 @@ function dogValidation (name, breed, age, weight) {
     toastr.error('Name must be at least 2 characters long')
     return false
   }
-  if (breed.length < 3 || lastName === '') {
+  if (breed.length < 3 || breed === '') {
     toastr.error('Breed must be at least 3 characters long')
     return false
   }
@@ -22,4 +22,6 @@ function dogValidation (name, breed, age, weight) {
   return true
 }
 
-export default dogValidation;
+export {
+  dogValidation
+}

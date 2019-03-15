@@ -46,6 +46,7 @@ function validateProfileForm(payload) {
 // @access  Private
 router.post('/create', authCheck, (req, res) => {
     const profileObj = req.body;
+    const userId = req.user._id
     const validationResult = validateProfileForm(profileObj)
     if (!validationResult.success) {
         return res.status(200).json({
@@ -55,13 +56,13 @@ router.post('/create', authCheck, (req, res) => {
         })
     }
 
-    profileObj.user = req.user_id;
+    profileObj.user = userId;
 
     Profile.create(profileObj).then((createdProfile) => {
         res.status(200).json({
             success: true,
             message: "Profile created successfully",
-            data:createdProfile
+            data: createdProfile
         })
     }).catch(err => {
         console.log(err);
@@ -79,6 +80,7 @@ router.post('/create', authCheck, (req, res) => {
 router.post('/edit/:id', authCheck, (req, res) => {
     const profileId = req.params.id;
     const profileObj = req.body;
+
     const validationResult = validateProfileForm(profileObj)
     if (!validationResult.success) {
         return res.status(200).json({
@@ -88,8 +90,8 @@ router.post('/edit/:id', authCheck, (req, res) => {
         })
     }
 
-    Profile.findById({ profileId }).then((editetProfile) => {
-        editetProfile.firstName=profileObj.firstName;
+    Profile.findById({ _id:profileId, user:req.user._id }).then((editetProfile) => {
+        editetProfile.firstName = profileObj.firstName;
         editetProfile.lastName = profileObj.lastName;
         editetProfile.address = profileObj.address;
         editetProfile.telephone = profileObj.telephone;
@@ -98,7 +100,7 @@ router.post('/edit/:id', authCheck, (req, res) => {
             res.status(200).json({
                 success: true,
                 message: "Profile updated successfully",
-                data:profile
+                data: profile
             })
         }).catch((err) => {
             console.log(err);
@@ -122,52 +124,30 @@ router.post('/edit/:id', authCheck, (req, res) => {
 // @desc    Delete user and profile
 // @access  Private
 router.delete('/delete/:id', authCheck, (req, res) => {
-
-    Profile.findOneAndRemove({ user: req.user_id }).then(() => {
-        User.findByIdAndRemove({ _id: req.user._id }).then(() => {
-            res.status(200).json({
-                success: true,
-                message: "Profile wad deleted"
+    if (req.user.roles.indexOf('Admin') > -1) {
+        Profile.findOneAndRemove({ user: req.user_id }).then(() => {
+            User.findByIdAndRemove({ _id: req.user._id }).then(() => {
+                res.status(200).json({
+                    success: true,
+                    message: "Profile wad deleted"
+                })
             })
-        })
-    }).catch(err => {
-        console.log(err);
-        const message = 'Something went wrong';
-        return res.status(200).json({
-            success: false,
-            message: message
-        })
-    })
-})
-
-// @route   GET /profile/all
-// @desc    Get all profiles
-// @access  Private admin
-
-router.get('/all', authCheck, (req, res) => {
-    Profile.find().populate('user').then(profiles => {
-        if(!profiles){
-            const message = 'There are no profiles'
+        }).catch(err => {
+            console.log(err);
+            const message = 'Something went wrong';
             return res.status(200).json({
                 success: false,
-                message: message,
-                errors: validationResult.errors
+                message: message
             })
-        }
-        res.status(200).json({
-            success: true,
-            message: "Found profiles",
-            data:profiles
         })
-    }).catch(err =>{
-        console.log(err);
-        const message = 'Something went wrong';
+    } else {
         return res.status(200).json({
             success: false,
-            message: message
+            message: 'Invalid credentials'
         })
-    })
+    }
 })
+
 
 
 module.exports = router

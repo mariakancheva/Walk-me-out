@@ -80,7 +80,7 @@ const loginValidationFunc = (email, password) => {
     }
 }
 
-const dogValidationFunc = (name, breed, age, weight) => {
+const dogValidationFunction = (name, breed, age, weight) => {
     let validName = (() => {
         if (
             name.length > 1 &&
@@ -156,9 +156,56 @@ const walkValidationFunction = (date, time) => {
     }
 }
 
+const profileValidationFunction = (firstName,lastName,address,telephone) => {
+    let validFirstName = (() => {
+        if(
+            firstName.lenght > 2 &&
+            firstName !== ''
+        ){
+            return true
+        }
+        return false
+    })()
+    let validLastName = (() => {
+        if(
+            lastName.lenght > 2 &&
+            lastName !== ''
+        ){
+            return true
+        }
+        return false
+    })()
+    let validAddress = (() => {
+        if(
+            address.lenght > 7 &&
+            address !== ''
+        ){
+            return true
+        }
+        return false
+    })()
+    let validTelephone = (() => {
+        if(
+            telephone.lenght > 7 &&
+            telephone !== ''
+        ){
+            return true
+        }
+        return false
+    })()
+
+    return{
+        validFirstName,
+        validLastName,
+        validAddress,
+        validTelephone
+    }
+}
+
 export {
     registerValidationFunc,
     loginValidationFunc,
-    dogValidationFunc,
-    walkValidationFunction
+    dogValidationFunction,
+    walkValidationFunction,
+    profileValidationFunction
 }
