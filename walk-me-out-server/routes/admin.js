@@ -12,7 +12,7 @@ const router = new express.Router()
 // @desc    Get all dogs
 // @access  Private admin
 
-router.get('admin/dog/all', (req, res) => {
+router.get('/dogs', (req, res) => {
     if (req.user.roles.indexOf('Admin') > -1) {
 
         Dog.find().populate('owner').then(dogs => {
@@ -49,7 +49,7 @@ router.get('admin/dog/all', (req, res) => {
 // @desc    Get all dogs
 // @access  Private admin
 
-router.get('admin/walk/all', authCheck, (req, res) => {
+router.get('/walks', authCheck, (req, res) => {
     if (req.user.roles.indexOf('Admin') > -1) {
         Walk.find().populate('dog').populate('user').then(walks => {
             if (!walks) {
@@ -86,7 +86,7 @@ router.get('admin/walk/all', authCheck, (req, res) => {
 // @desc    Get all profiles
 // @access  Private admin
 
-router.get('admin/profile/all', authCheck, (req, res) => {
+router.get('/profiles', (req, res) => {
     if (req.user.roles.indexOf('Admin') > -1) {
         Profile.find().populate('user').then(profiles => {
             if (!profiles) {

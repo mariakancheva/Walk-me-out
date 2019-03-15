@@ -4,8 +4,8 @@ import '../../css/header.css';
 
 const Header = (props) => {
 
-    const { loggedIn, isAdmin, logout, profiles, dogs, walks } = props
-    
+    const { loggedIn, isAdmin, logout } = props
+
     return (
         <header>
             <div className="header-top">
@@ -28,12 +28,13 @@ const Header = (props) => {
             </div>
             <nav className="main-navigation">
                 <div className="site-nav">
-                    <NavLink to="/about"> About Us</NavLink>
-                    <NavLink to="/services"> Services</NavLink>
-                    <NavLink to="/contact"> Contact</NavLink>
-                    {loggedIn && !isAdmin && <NavLink to="/user/profile">Profile</NavLink>}
-                    {loggedIn && !isAdmin && <NavLink to="/user/dog">Dog</NavLink>}
-                    {loggedIn && !isAdmin && <NavLink to="/user/walk">Walk</NavLink>}
+                    {!loggedIn && !isAdmin && <NavLink to="/about"> About Us</NavLink>}
+                    {!loggedIn && !isAdmin && <NavLink to="/services"> Services</NavLink>}
+                    {!loggedIn && !isAdmin && <NavLink to="/contact"> Contact</NavLink>}
+
+                    {loggedIn && !isAdmin && <NavLink to="/profile">Profile</NavLink>}
+                    {loggedIn && !isAdmin && <NavLink to="/dog">Dog</NavLink>}
+                    {loggedIn && !isAdmin && <NavLink to="/walk">Walk</NavLink>}
 
                 </div>
 

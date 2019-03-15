@@ -44,7 +44,7 @@ function validateProfileForm(payload) {
 // @route   POST /profile/create
 // @desc    Create user profile
 // @access  Private
-router.post('/create', authCheck, (req, res) => {
+router.post('/create', (req, res) => {
     const profileObj = req.body;
     const userId = req.user._id
     const validationResult = validateProfileForm(profileObj)

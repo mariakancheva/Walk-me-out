@@ -29,9 +29,7 @@ import PrivateRoute from './components/routes/PrivateRoute';
 import AdminRoute from './components/routes/AdminRoute';
 import './css/App.css';
 import Auth from './utils/auth';
-import { fetchProfilesAction } from './store/actions/profileActions';
-import { fetchDogsAction } from './store/actions/dogActions';
-import {fetchWalksAction} from './store/actions/walkActions'
+
 
 class App extends Component {
   constructor(props) {
@@ -40,17 +38,6 @@ class App extends Component {
       loggedIn: false
     }
     this.logout = this.logout.bind(this)
-  }
-
-  componentWillMount() {
-    if (Auth.isUserAuthenticated()) {
-      this.setState({ loggedIn: true })
-    }   
-    
-    this.props.fetchProfiles()
-    this.props.fetchDogs()
-    this.props.fetchWalks()
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,14 +75,14 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
 
-            <AdminRoute path="/admin" component={HomeAdmin} />
+            <AdminRoute exact path="/admin" component={HomeAdmin} />
 
-            <PrivateRoute path="/user" component={HomeUser}/>
+            <PrivateRoute exact path="/user" component={HomeUser}/>
             
-            <PrivateRoute path="/user/profile/create" component={ProfileCreate}/>
-            <PrivateRoute path="/user/profile/edit/id" component={ProfileEdit}/>
-            <PrivateRoute path="/user/dog/create" component={DogCreate}/>
-            <PrivateRoute path="/user/dog/edit/:id" component={DogEdit}/>
+            <PrivateRoute exact path="/profile/create" component={ProfileCreate}/>
+            <PrivateRoute path="/profile/edit/id" component={ProfileEdit}/>
+            <PrivateRoute path="/dog/create" component={DogCreate}/>
+            <PrivateRoute path="/dog/edit/:id" component={DogEdit}/>
             <PrivateRoute path="/walk/create" component={WalkCreate}/>
             <PrivateRoute path="/walk/edit" component={WalkEdit}/> 
 
@@ -118,10 +105,7 @@ function mapStateToProps (state){
 
 function mapDispatchToProps (dispatch){
   return {
-    logout: () => dispatch(logoutAction()),
-    fetchProfiles: () => dispatch(fetchProfilesAction()),
-    fetchDogs: () => dispatch(fetchDogsAction()),
-    fetchWalks: () => dispatch(fetchWalksAction())
+    logout: () => dispatch(logoutAction())
   }
 }
 

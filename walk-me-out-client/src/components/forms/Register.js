@@ -8,6 +8,9 @@ import Auth from '../../utils/auth';
 import {registerValidationFunc} from '../../utils/formValidation';
 import registerValidation from "../../utils/registerValidation";
 import toastr from 'toastr';
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {registerAction,loginAction,redirectAction} from '../../store/actions/authActions'
 
 
 class Register extends Component {
@@ -135,4 +138,20 @@ class Register extends Component {
     }
 }
 
-export default Register;
+function mapStateToProps (state) {
+    return {
+      registerSuccess: state.register.success,
+      loginSuccess: state.login.success,
+      registerError: state.registerError
+    }
+  }
+  
+  function mapDispatchToProps (dispatch) {
+    return {
+      register: (username, email, password) => dispatch(registerAction(username, email, password)),
+      login: (email, password) => dispatch(loginAction(email, password)),
+      redirect: () => dispatch(redirectAction())
+    }
+  }
+  
+  export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register))

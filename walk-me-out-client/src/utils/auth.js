@@ -10,6 +10,10 @@ class Auth {
     static getUsername () {
       return window.localStorage.getItem('username')
     }
+
+    static getUserId () {
+      return window.localStorage.getItem('userId')
+    }
   
     static isUserAdmin () {
       let roles = window.localStorage.getItem('roles')

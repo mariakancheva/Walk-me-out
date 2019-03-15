@@ -4,8 +4,11 @@ const host = 'http://localhost:5000'
 async function register (username, email, password){
     const res = await window.fetch(host + '/auth/signup', {
         method:'POST',
+        mode:"cors",
+        credentials:'same-origin',
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Accept':'apliccation/json'
         },
         body:JSON.stringify({
             username,
@@ -21,7 +24,8 @@ async function login (email,password){
     const res = await window.fetch(host + '/auth/login',{
         method:'POST',
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Accept':'apliccation/json'
         },
         body:JSON.stringify({
             email,
@@ -39,7 +43,7 @@ async function createProfile(data){
             'Content-Type':'application/json',
             'Authorization':'bearer ' + Auth.getToken()
         },
-        body:JSON.stringify(data)
+        body:JSON.stringify(data),
     })
 
     return res.json();
@@ -72,8 +76,13 @@ async function deleteProfile(id){
 }
 
 async function fetchProfiles(){
-    const res = await window.fetch(host + '/admin/profile/all')
-    return res.json();
+    const res = await window.fetch(host + '/admin/profiles',{
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'bearer ' + Auth.getToken()
+        }
+    })
+    return res.json()
 }
 
 async function addDog(data){
@@ -115,7 +124,12 @@ async function deleteDog(id){
 }
 
 async function fetchDogs(){
-    const res = await window.fetch(host + '/admin/dog/all')
+    const res = await window.fetch(host + '/admin/dogs', {
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'bearer ' + Auth.getToken()
+        }
+    })
 
     return res.json();
 }
@@ -160,7 +174,12 @@ async function deleteWalk(id){
 }
 
 async function fetchWalks(){
-    const res = await window.fetch(host + '/admin/walk/all')
+    const res = await window.fetch(host + '/admin/walks',{
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'bearer ' + Auth.getToken()
+        }
+    })
 
     return res.json();
 }

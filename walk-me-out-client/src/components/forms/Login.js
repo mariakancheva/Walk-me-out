@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import toastr from 'toastr';
 import Auth from '../../utils/auth';
-import {loginValidationFunc} from '../../utils/formValidation';
+import { loginValidationFunc } from '../../utils/formValidation';
 import loginValidation from "../../utils/loginValidation";
 import TextField from '@material-ui/core/TextField';
 import LoginPicture from '../../images/pawel-czerwinski-1404601-unsplash.jpg'
 import "../../css/register.css";
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { loginAction, redirectAction } from '../../store/actions/authActions'
 
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -22,35 +25,44 @@ export default class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentWillMount(){
-    if(Auth.isUserAuthenticated()){
-      this.props.history.push('/')
+  componentWillMount() {
+    if (Auth.isUserAdmin()) {
+
+      this.props.history.push('/admin')
+    } else if (Auth.isUserAuthenticated()) {
+      this.props.history.push('/user')
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.loginError.hasError){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loginError.hasError) {
       toastr.error(nextProps.loginError.message)
-    }else if(nextProps.loginSuccess){
+    } else if (nextProps.loginSuccess) {
       this.props.redirect()
       toastr.success('Login successful')
-      this.props.history.push('/')
+      if (!this.props.isAdmin) {
+        this.props.history.push('/user')
+      } else {
+        this.props.history.push('/admin')
+      }
+
     }
   }
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    if(!loginValidation(this.state.email,this.state.password)){
+    if (!loginValidation(this.state.email, this.state.password)) {
       return
     }
 
     this.props.login(this.state.email, this.state.password)
+
   }
 
   render() {
@@ -98,3 +110,19 @@ export default class Login extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    loginSuccess: state.login.success,
+    loginError: state.loginError
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (email, password) => dispatch(loginAction(email, password)),
+    redirect: () => dispatch(redirectAction())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
